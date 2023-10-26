@@ -11,6 +11,8 @@ pinecone-client = "*"
 tiktoken = "*"
 pypdf = "*"
 python-dotenv = "*"
+streamlit = "*"
+streamlit-chat = "*"
 
 [dev-packages]
 autopep8 = "*"

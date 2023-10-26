@@ -19,7 +19,8 @@ pinecone.init(
     api_key=PINECONE_API_KEY, environment=PINECONE_ENV
 )
 
-if __name__ == "__main__":
+
+def run_llm(query):
     loader = TextLoader(
         "/Users/qichen/Documents/Volunteer/LEXIFY/AI Projects/DocReader/langchain_wikipedia.txt"
     )
@@ -37,6 +38,7 @@ if __name__ == "__main__":
         texts, embeddings, index_name="langchain-doc-index")
     qa = RetrievalQA.from_chain_type(
         llm=OpenAI(openai_api_key=OPENAI_API_KEY), chain_type="refine", retriever=docsearch.as_retriever())
-    query = "what is langchain? "
+
     result = qa({"query": query})
     print(result)
+    return result
