@@ -16,10 +16,12 @@ These instructions will help you set up and run the project on your local machin
 `cd your-project`
 3. Open the project in Visual Studio Code: <br>
    `code .`
-4. In the terminal, create a virtual environment and install dependencies using pipenv:<br>
+4. In your project directory, create .env file with your own PINECONE_API_KEY, PINECONE_ENV and OPENAI_API_KEY
+5. In the terminal, create a virtual environment and install dependencies using pipenv:<br>
  `pipenv shell`<br>
 `pipenv install`
-4. Run the Streamlit app: <br>
+6. Run `python3 main.py` in your terminal to do the embedding
+7. Run the Streamlit app: <br>
 `streamlit run frontend.py`
 <br>
 The application should now be running locally. Open your web browser and go to http://localhost:8501 to view the app.
