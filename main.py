@@ -20,22 +20,29 @@ pinecone.init(
 )
 
 
-def run_llm(query):
-    loader = TextLoader(
-        "/Users/qichen/Documents/Volunteer/LEXIFY/AI Projects/DocReader/langchain_wikipedia.txt"
-    )
-    # loader = PyPDFLoader(
-    #     file_path="/Users/qichen/Documents/Volunteer/LEXIFY/AI Projects/DocReader/langchain_research.pdf")
+def load():
+    loader = PyPDFLoader(
+        "/Users/qichen/Documents/Volunteer/LEXIFY/AI Projects/LexAutoNew/7-UP BOTTLING CO. LTD & ORS V. ABIOLA & SONS BOTTLING CO. LTD.pdf")
     document = loader.load()
-
     text_splitter = CharacterTextSplitter(chunk_size=300, chunk_overlap=0)
     texts = text_splitter.split_documents(document)
-    print(len(texts))
     embeddings = OpenAIEmbeddings(
         openai_api_key=OPENAI_API_KEY
     )
     docsearch = Pinecone.from_documents(
         texts, embeddings, index_name="langchain-doc-index")
+
+
+if __name__ == "__main__":
+    load()
+
+
+def run_llm(query):
+    embeddings = OpenAIEmbeddings(
+        openai_api_key=OPENAI_API_KEY
+    )
+    docsearch = Pinecone.from_existing_index(
+        embedding=embeddings, index_name="langchain-doc-index")
     qa = RetrievalQA.from_chain_type(
         llm=OpenAI(openai_api_key=OPENAI_API_KEY), chain_type="refine", retriever=docsearch.as_retriever())
 
